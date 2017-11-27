@@ -1,8 +1,8 @@
 package ru.sbt.javacourse.hw04;
 
 public interface Terminal {
-
-    public double checkAccount(String pin);
+    public boolean enterPin(String pin);
+    public double checkAccount();
     public double changeAccount(double amount);
 }
 

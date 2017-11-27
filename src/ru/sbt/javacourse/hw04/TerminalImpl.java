@@ -2,20 +2,30 @@ package ru.sbt.javacourse.hw04;
 
 public class TerminalImpl implements Terminal{
     private final TerminalServer server;
-    private final PinValidator pinValidator; 
+    private final PinValidator pinValidator;
 
-
+    public TerminalImpl(TerminalServer server, PinValidator pinValidator) {
+        this.server = server;
+        this.pinValidator = pinValidator;
+    }
 
     @Override
-    public double checkAccount(String pin) {
+    public boolean enterPin(String pin) {
+        return pinValidator.enterPin(pin);
+    }
 
-
-
-        return 0;
+    @Override
+    public double checkAccount() {
+        pinValidator.validate();
+        return server.balance();
     }
 
     @Override
     public double changeAccount(double amount) {
-        return 0;
+        pinValidator.validate();
+        if (amount > 0)
+            return server.put(amount);
+        else
+            return server.withdraw(amount);
     }
 }
