@@ -46,13 +46,13 @@ public class TerminalImplTest {
         Terminal terminal = new TerminalImpl(null, new PinValidator("qwerty"));
         // Без пин кода
         try {
-            terminal.checkAccount();
+            terminal.check();
             assertTrue(false);
         } catch (PinIsNotEnteredException e) {
             assertTrue(true);
         }
         try {
-            terminal.changeAccount(100.);
+            terminal.cash(150);
             assertTrue(false);
         } catch (PinIsNotEnteredException e) {
             assertTrue(true);
@@ -60,7 +60,7 @@ public class TerminalImplTest {
         // С пин кодом
         terminal.enterPin("qwerty");
         try {
-            terminal.checkAccount();
+            terminal.check();
             assertTrue(false);
         } catch (PinIsNotEnteredException e) {
             assertTrue(false);
@@ -70,13 +70,13 @@ public class TerminalImplTest {
         // С неправильным пин кодом
         terminal.enterPin("Qwerty");
         try {
-            terminal.checkAccount();
+            terminal.check();
             assertTrue(false);
         } catch (PinIsNotEnteredException e) {
             assertTrue(true);
         }
         try {
-            terminal.changeAccount(100.);
+            terminal.cash(-150);
             assertTrue(false);
         } catch (PinIsNotEnteredException e) {
             assertTrue(true);
@@ -84,7 +84,27 @@ public class TerminalImplTest {
     }
 
     @Test
-    public void changeAccount() throws Exception {
-    }
+    public void test04_AmountMod100() throws Exception {
+        Terminal terminal = new TerminalImpl(null, new PinValidator("qwerty"));
+        terminal.enterPin("qwerty");
 
+        try {
+            terminal.cash(10);
+            assertTrue(false);
+        } catch (AmountMod100Exception e) {
+            assertTrue(true);
+        }
+        try {
+            terminal.cash(-110);
+            assertTrue(false);
+        } catch (AmountMod100Exception e) {
+            assertTrue(true);
+        }
+        try {
+            terminal.cash(0);
+            assertTrue(false);
+        } catch (AmountMod100Exception e) {
+            assertTrue(true);
+        }
+    }
 }

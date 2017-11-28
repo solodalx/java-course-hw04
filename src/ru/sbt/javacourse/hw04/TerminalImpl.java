@@ -1,5 +1,13 @@
 package ru.sbt.javacourse.hw04;
 
+
+class AmountMod100Exception extends RuntimeException {
+    @Override
+    public String toString() {
+        return "Сумма должна быть кратна 100";
+    }
+}
+
 public class TerminalImpl implements Terminal{
     private final TerminalServer server;
     private final PinValidator pinValidator;
@@ -15,17 +23,25 @@ public class TerminalImpl implements Terminal{
     }
 
     @Override
-    public double checkAccount() {
+    public int check() {
         pinValidator.validate();
         return server.balance();
     }
 
     @Override
-    public double changeAccount(double amount) {
+    public int cash(int amount) {
         pinValidator.validate();
-        if (amount > 0)
+        if (amount % 100 != 0)
+            throw new AmountMod100Exception();
+
+        if (amount > 0) {
             return server.put(amount);
-        else
+        }
+        else if (amount < 0) {
             return server.withdraw(amount);
+        }
+        else {
+            throw new AmountMod100Exception();
+        }
     }
 }

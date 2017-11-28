@@ -16,7 +16,7 @@ class ServerDisabledException extends RuntimeException {
 }
 
 public interface TerminalServer {
-    public double balance();
-    public double put(double amount);
-    public double withdraw(double amount);
+    public int balance();
+    public int put(int amount);
+    public int withdraw(int amount);
 }
