@@ -1,6 +1,7 @@
 package ru.sbt.javacourse.hw04;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.*;
 
@@ -84,7 +85,7 @@ public class TerminalImplTest {
     }
 
     @Test
-    public void test04_AmountMod100() throws Exception {
+    public void test04_amountMod100() throws Exception {
         Terminal terminal = new TerminalImpl(null, new PinValidator("qwerty"));
         terminal.enterPin("qwerty");
 
@@ -107,4 +108,15 @@ public class TerminalImplTest {
             assertTrue(true);
         }
     }
+
+    @Test
+    public void test05_checkBalance() throws Exception {
+        TerminalServer server = Mockito.mock(TerminalServer.class);
+        when(server.balance()).thenReturn(300);
+
+
+        Terminal terminal = new TerminalImpl(null, new PinValidator("qwerty"));
+        terminal.enterPin("qwerty");
+
+
 }
