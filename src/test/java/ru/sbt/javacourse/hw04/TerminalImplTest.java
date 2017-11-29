@@ -1,9 +1,11 @@
 package ru.sbt.javacourse.hw04;
 
 import org.junit.Test;
-//import org.mockito.Mockito;
+import org.mockito.Mockito;
+
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 public class TerminalImplTest {
     @Test
@@ -86,7 +88,10 @@ public class TerminalImplTest {
 
     @Test
     public void test04_amountMod100() throws Exception {
-        Terminal terminal = new TerminalImpl(null, new PinValidator("qwerty"));
+        TerminalServer server = Mockito.mock(TerminalServer.class);
+        when(server.balance()).thenReturn(300);
+
+        Terminal terminal = new TerminalImpl(server, new PinValidator("qwerty"));
         terminal.enterPin("qwerty");
 
         try {
@@ -109,14 +114,36 @@ public class TerminalImplTest {
         }
     }
 
-//    @Test
- /*   public void test05_checkBalance() throws Exception {
+    @Test
+    public void test05_checkBalance() throws Exception {
         TerminalServer server = Mockito.mock(TerminalServer.class);
         when(server.balance()).thenReturn(300);
 
-
-        Terminal terminal = new TerminalImpl(null, new PinValidator("qwerty"));
+        Terminal terminal = new TerminalImpl(server, new PinValidator("qwerty"));
         terminal.enterPin("qwerty");
-*/
+        assertEquals(300, terminal.check());
+    }
+
+    @Test
+    public void test06_cashOperations() throws Exception {
+        TerminalServer server = Mockito.mock(TerminalServer.class);
+        when(server.balance()).thenReturn(300);
+        when(server.put(100)).thenReturn(400);
+        when(server.withdraw(300)).thenReturn(100);
+        when(server.withdraw(200)).thenThrow(new NotEnoughMoneyException());
+
+        Terminal terminal = new TerminalImpl(server, new PinValidator("qwerty"));
+        terminal.enterPin("qwerty");
+        assertEquals(300, terminal.check());
+        assertEquals(400, terminal.cash(100));
+        assertEquals(100, terminal.cash(-300));
+        try {
+            terminal.cash(-200);
+            assertTrue(false);
+        } catch (NotEnoughMoneyException e) {
+            assertTrue(true);
+        }
+    }
+
 
 }

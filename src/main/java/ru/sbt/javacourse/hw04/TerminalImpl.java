@@ -38,7 +38,7 @@ public class TerminalImpl implements Terminal{
             return server.put(amount);
         }
         else if (amount < 0) {
-            return server.withdraw(amount);
+            return server.withdraw(-amount);
         }
         else {
             throw new AmountMod100Exception();

@@ -4,7 +4,7 @@ package ru.sbt.javacourse.hw04;
 class NotEnoughMoneyException extends RuntimeException {
     @Override
     public String toString() {
-        return "Не достаточно средств на счете";
+        return "Недостаточно средств на счете";
     }
 }
 
