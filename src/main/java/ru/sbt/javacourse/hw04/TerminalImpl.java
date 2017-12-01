@@ -4,7 +4,7 @@ package ru.sbt.javacourse.hw04;
 class AmountMod100Exception extends RuntimeException {
     @Override
     public String toString() {
-        return "Сумма должна быть кратна 100";
+        return "Сумма должна быть кратна 100. Введите сумму, кратную 100.";
     }
 }
 

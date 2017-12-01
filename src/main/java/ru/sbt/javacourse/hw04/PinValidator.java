@@ -15,14 +15,14 @@ class AccountIsLockedException extends RuntimeException {
 
     @Override
     public String toString() {
-        return "Счет заблокирован до " + unlockAt.toString();
+        return "Счет заблокирован до " + unlockAt.toString() + ". Повторите попытку после разблокировки.";
     }
 }
 
 class PinIsNotEnteredException extends RuntimeException {
     @Override
     public String toString() {
-        return "Корректный пин код не был введен";
+        return "Корректный пин код не был введен. Введите правильный пин код.";
     }
 }
 

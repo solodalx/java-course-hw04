@@ -28,6 +28,7 @@ public class TerminalImplTest {
             assertTrue(false);
         } catch (AccountIsLockedException e) {
             assertTrue(e.toString().startsWith("Счет заблокирован"));
+            System.out.println(e);
             assertTrue(true);
 //            throw e;
         }
@@ -37,6 +38,7 @@ public class TerminalImplTest {
             assertTrue(false);
         } catch (AccountIsLockedException e) {
             assertTrue(e.toString().startsWith("Счет заблокирован"));
+            System.out.println(e);
             assertTrue(true);
         }
         Thread.currentThread().sleep(4000);
@@ -52,12 +54,14 @@ public class TerminalImplTest {
             terminal.check();
             assertTrue(false);
         } catch (PinIsNotEnteredException e) {
+            System.out.println(e);
             assertTrue(true);
         }
         try {
             terminal.cash(150);
             assertTrue(false);
         } catch (PinIsNotEnteredException e) {
+            System.out.println(e);
             assertTrue(true);
         }
         // С пин кодом
@@ -66,8 +70,10 @@ public class TerminalImplTest {
             terminal.check();
             assertTrue(false);
         } catch (PinIsNotEnteredException e) {
+            System.out.println(e);
             assertTrue(false);
         } catch (NullPointerException e) {
+            System.out.println("Подключение к серверу отсутствует. Обратитесь к администратору.");
             assertTrue(true);
         }
         // С неправильным пин кодом
@@ -76,12 +82,14 @@ public class TerminalImplTest {
             terminal.check();
             assertTrue(false);
         } catch (PinIsNotEnteredException e) {
+            System.out.println(e);
             assertTrue(true);
         }
         try {
             terminal.cash(-150);
             assertTrue(false);
         } catch (PinIsNotEnteredException e) {
+            System.out.println(e);
             assertTrue(true);
         }
     }
@@ -98,18 +106,21 @@ public class TerminalImplTest {
             terminal.cash(10);
             assertTrue(false);
         } catch (AmountMod100Exception e) {
+            System.out.println(e);
             assertTrue(true);
         }
         try {
             terminal.cash(-110);
             assertTrue(false);
         } catch (AmountMod100Exception e) {
+            System.out.println(e);
             assertTrue(true);
         }
         try {
             terminal.cash(0);
             assertTrue(false);
         } catch (AmountMod100Exception e) {
+            System.out.println(e);
             assertTrue(true);
         }
     }
@@ -141,6 +152,7 @@ public class TerminalImplTest {
             terminal.cash(-200);
             assertTrue(false);
         } catch (NotEnoughMoneyException e) {
+            System.out.println(e);
             assertTrue(true);
         }
     }

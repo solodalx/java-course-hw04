@@ -4,14 +4,14 @@ package ru.sbt.javacourse.hw04;
 class NotEnoughMoneyException extends RuntimeException {
     @Override
     public String toString() {
-        return "Недостаточно средств на счете";
+        return "Недостаточно средств на счете. Укажите достаточную сумму.";
     }
 }
 
 class ServerDisabledException extends RuntimeException {
     @Override
     public String toString() {
-        return "Сервер недоступен";
+        return "Сервер недоступен. Обратитесь к администратору.";
     }
 }
 
